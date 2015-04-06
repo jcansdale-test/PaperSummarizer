@@ -72,7 +72,7 @@ function word_cloud($words) {
         }
         
         if ($font_size >= $fmin) {
-			$cloud .= "<a style=\"font-size: {$font_size}px; color: $color;\">$word</a> ";
+			$cloud .= "<a href=\"wordTable.php?word=$word\" style=\"font-size: {$font_size}px; color: $color;\">$word</a> ";
             $tags++;
         }
     }

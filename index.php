@@ -34,7 +34,7 @@
 			<span>Article Limit:</span>
 			<select id="limit">
 				<?php
-					for($i = 0; $i < 20; $i++) {
+					for($i = 1; $i < 20; $i++) {
 						echo "<option id=$i>$i</option>";
 					}
 				?>

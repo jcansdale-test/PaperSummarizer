@@ -16,8 +16,13 @@ class WordCloud
         $papers = array();
         $papersID = array();
         $keyword = $_keyword;
-		//"http://ieeexplore.ieee.org/gateway/ipsSearch.jsp?querytext="
-        $xml = simplexml_load_string(file_get_contents($url . $keyword . "&hc=" . $topX . "&rs=1"));
+		if(strcmp($url, "http://ieeexplore.ieee.org/gateway/ipsSearch.jsp?querytext=") == 0) {
+			$xml = simplexml_load_string(file_get_contents($url . $keyword . "&hc=" . $topX . "&rs=1"));
+		}
+		else {
+			$xml = simplexml_load_string(file_get_contents($url));
+		}
+        
         foreach($xml->document as $document){
            # echo $document->title . "   " . $document ->arnumber .  "<br/>";
             $papers[] = $document ->title;
@@ -31,7 +36,13 @@ class WordCloud
         $textForWordCloud = "";
         for($i=0; $i<count($papersID); $i++){
 			//"http://ieeexplore.ieee.org/xpl/articleDetails.jsp?tp=&arnumber="
-            $html = file_get_html($url . $papersID[$i]);
+			$link = $url . $papersID[$i];
+			
+			if(strcmp($url, "test/testArticle") == 0) {
+				$link .= ".html";
+			}
+			
+            $html = file_get_html($link);
             foreach ($html->find('body') as $ul) {
                 foreach ($ul->find('div[id=LayoutWrapper]') as $li) {
                     foreach ($li->find('div[id=article-page]') as $li2) {
@@ -44,7 +55,7 @@ class WordCloud
                                                 foreach ($li8->find('div[class=article]') as $li9) {
                                                     foreach ($li9->find('p') as $li10) {
                                                         #echo $li10->plaintext;
-                                                        $textForWordCloud = $textForWordCloud . $li10->plaintext . " ";
+                                                        $textForWordCloud = $textForWordCloud . trim($li10->plaintext) . " ";
                                                     }
                                                 }
                                             }

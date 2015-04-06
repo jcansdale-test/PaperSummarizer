@@ -1,0 +1,198 @@
+<root>
+<totalfound>209</totalfound>
+<totalsearched>3961338</totalsearched>
+<document>
+<rank>1</rank>
+<title>
+<![CDATA[
+WASP: Protecting Web Applications Using Positive Tainting and Syntax-Aware Evaluation
+]]>
+</title>
+<authors>
+<![CDATA[ Halfond, W.G.J.; Orso, A.; Manolios, P. ]]>
+</authors>
+<affiliations>
+<![CDATA[ Georgia Inst. of Technol., Atlanta ]]>
+</affiliations>
+<controlledterms>
+<term>
+<![CDATA[ Internet ]]>
+</term>
+<term>
+<![CDATA[ SQL ]]>
+</term>
+<term>
+<![CDATA[ security of data ]]>
+</term>
+</controlledterms>
+<pubtitle>
+<![CDATA[ Software Engineering, IEEE Transactions on ]]>
+</pubtitle>
+<punumber>
+<![CDATA[ 32 ]]>
+</punumber>
+<pubtype>
+<![CDATA[ Journals & Magazines ]]>
+</pubtype>
+<publisher>
+<![CDATA[ IEEE ]]>
+</publisher>
+<volume>
+<![CDATA[ 34 ]]>
+</volume>
+<issue>
+<![CDATA[ 1 ]]>
+</issue>
+<py>
+<![CDATA[ 2008 ]]>
+</py>
+<spage>
+<![CDATA[ 65 ]]>
+</spage>
+<epage>
+<![CDATA[ 81 ]]>
+</epage>
+<abstract>
+<![CDATA[
+Many software systems have evolved to include a Web-based component that makes them available to the public via the Internet and can expose them to a variety of Web-based attacks. One of these attacks is SQL injection, which can give attackers unrestricted access to the databases that underlie Web applications and has become increasingly frequent and serious. This paper presents a new highly automated approach for protecting Web applications against SQL injection that has both conceptual and practical advantages over most existing techniques. From a conceptual standpoint, the approach is based on the novel idea of positive tainting and on the concept of syntax-aware evaluation. From a practical standpoint, our technique is precise and efficient, has minimal deployment requirements, and incurs a negligible performance overhead in most cases. We have implemented our techniques in the Web application SQL-injection preventer (WASP) tool, which we used to perform an empirical evaluation on a wide range of Web applications that we subjected to a large and varied set of attacks and legitimate accesses. WASP was able to stop all of the otherwise successful attacks and did not generate any false positives.
+]]>
+</abstract>
+<issn>
+<![CDATA[ 0098-5589 ]]>
+</issn>
+<htmlFlag>
+<![CDATA[ 1 ]]>
+</htmlFlag>
+<arnumber>
+<![CDATA[ 4359474 ]]>
+</arnumber>
+<doi>
+<![CDATA[ 10.1109/TSE.2007.70748 ]]>
+</doi>
+<publicationId>
+<![CDATA[ 4359474 ]]>
+</publicationId>
+<mdurl>
+<![CDATA[
+http://ieeexplore.ieee.org/xpl/articleDetails.jsp?tp=&arnumber=4359474&contentType=Journals+%26+Magazines
+]]>
+</mdurl>
+<pdf>
+<![CDATA[
+http://ieeexplore.ieee.org/stamp/stamp.jsp?arnumber=4359474
+]]>
+</pdf>
+</document>
+<document>
+<rank>2</rank>
+<title>
+<![CDATA[
+Penetration Testing with Improved Input Vector Identification
+]]>
+</title>
+<authors>
+<![CDATA[ Halfond, W.G.J.; Choudhary, S.R.; Orso, A. ]]>
+</authors>
+<affiliations>
+<![CDATA[
+Coll. of Comput., Georgia Inst. of Technol., Atlanta, GA
+]]>
+</affiliations>
+<controlledterms>
+<term>
+<![CDATA[ Internet ]]>
+</term>
+<term>
+<![CDATA[ program testing ]]>
+</term>
+<term>
+<![CDATA[ security of data ]]>
+</term>
+</controlledterms>
+<thesaurusterms>
+<term>
+<![CDATA[ Application software ]]>
+</term>
+<term>
+<![CDATA[ Automatic testing ]]>
+</term>
+<term>
+<![CDATA[ Best practices ]]>
+</term>
+<term>
+<![CDATA[ Crawlers ]]>
+</term>
+<term>
+<![CDATA[ Electronic equipment testing ]]>
+</term>
+<term>
+<![CDATA[ Information analysis ]]>
+</term>
+<term>
+<![CDATA[ Information security ]]>
+</term>
+<term>
+<![CDATA[ Performance evaluation ]]>
+</term>
+<term>
+<![CDATA[ Prototypes ]]>
+</term>
+<term>
+<![CDATA[ Software testing ]]>
+</term>
+</thesaurusterms>
+<pubtitle>
+<![CDATA[
+Software Testing Verification and Validation, 2009. ICST '09. International Conference on
+]]>
+</pubtitle>
+<punumber>
+<![CDATA[ 4815321 ]]>
+</punumber>
+<pubtype>
+<![CDATA[ Conference Publications ]]>
+</pubtype>
+<publisher>
+<![CDATA[ IEEE ]]>
+</publisher>
+<py>
+<![CDATA[ 2009 ]]>
+</py>
+<spage>
+<![CDATA[ 346 ]]>
+</spage>
+<epage>
+<![CDATA[ 355 ]]>
+</epage>
+<abstract>
+<![CDATA[
+Penetration testing is widely used to help ensure the security of web applications. It discovers vulnerabilities by simulating attacks from malicious users on a target application. Identifying the input vectors of a Web application and checking the results of an attack are important parts of penetration testing, as they indicate where an attack could be introduced and whether an attempted attack was successful. Current techniques for identifying input vectors and checking attack results are typically ad-hoc and incomplete, which can cause parts of an application to be untested and leave vulnerabilities undiscovered. In this paper, we propose a new approach to penetration testing that addresses these limitations by leveraging two recently-developed analysis techniques. The first is used to identify a web application's possible input vectors, and the second is used to automatically check whether an attack resulted in an injection. To empirically evaluate our approach, we compare it against a state-of-the-art, alternative technique. Our results show that our approach performs a more thorough penetration testing and leads to the discovery of more vulnerabilities.
+]]>
+</abstract>
+<isbn>
+<![CDATA[ 978-1-4244-3775-7 ]]>
+</isbn>
+<htmlFlag>
+<![CDATA[ 1 ]]>
+</htmlFlag>
+<arnumber>
+<![CDATA[ 4815368 ]]>
+</arnumber>
+<doi>
+<![CDATA[ 10.1109/ICST.2009.26 ]]>
+</doi>
+<publicationId>
+<![CDATA[ 4815368 ]]>
+</publicationId>
+<mdurl>
+<![CDATA[
+http://ieeexplore.ieee.org/xpl/articleDetails.jsp?tp=&arnumber=4815368&contentType=Conference+Publications
+]]>
+</mdurl>
+<pdf>
+<![CDATA[
+http://ieeexplore.ieee.org/stamp/stamp.jsp?arnumber=4815368
+]]>
+</pdf>
+</document>
+</root>
