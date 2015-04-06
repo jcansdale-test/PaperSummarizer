@@ -10,24 +10,28 @@ class WordCloud
 		return substr($string,$ini,$len);
 	}
     
-    function getPapersByKeyword($_keyword, $_topX){
+    function getPapersByKeyword($_keyword, $_topX, $_url){
         $topX = $_topX;
+		$url = $_url;
         $papers = array();
         $papersID = array();
         $keyword = $_keyword;
-        $xml = simplexml_load_string(file_get_contents("http://ieeexplore.ieee.org/gateway/ipsSearch.jsp?querytext=". $keyword . "&hc=" . $topX . "&rs=1"));
+		//"http://ieeexplore.ieee.org/gateway/ipsSearch.jsp?querytext="
+        $xml = simplexml_load_string(file_get_contents($url . $keyword . "&hc=" . $topX . "&rs=1"));
         foreach($xml->document as $document){
            # echo $document->title . "   " . $document ->arnumber .  "<br/>";
             $papers[] = $document ->title;
             $papersID[] = $document ->arnumber;
         }
+		
         return $papersID;
     }
-    function getWordsByPapers($papersID){
+    function getWordsByPapers($papersID, $url){
         include_once('simple_html_dom.php');
         $textForWordCloud = "";
         for($i=0; $i<count($papersID); $i++){
-            $html = file_get_html("http://ieeexplore.ieee.org/xpl/articleDetails.jsp?tp=&arnumber=" . $papersID[$i]);
+			//"http://ieeexplore.ieee.org/xpl/articleDetails.jsp?tp=&arnumber="
+            $html = file_get_html($url . $papersID[$i]);
             foreach ($html->find('body') as $ul) {
                 foreach ($ul->find('div[id=LayoutWrapper]') as $li) {
                     foreach ($li->find('div[id=article-page]') as $li2) {
@@ -43,7 +47,6 @@ class WordCloud
                                                         $textForWordCloud = $textForWordCloud . $li10->plaintext . " ";
                                                     }
                                                 }
-
                                             }
                                         }
                                     }
@@ -54,12 +57,14 @@ class WordCloud
                 }
             }
         }
-        echo $textForWordCloud;
-
+		
+        return $textForWordCloud;
     }
-
 }
+
+/*
 $provider = new WordCloud;
 $papersID = $provider->getPapersByKeyword("Halfond", 10);
 $words =  $provider->getWordsByPapers($papersID);
+*/
 ?>
