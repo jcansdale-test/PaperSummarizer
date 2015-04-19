@@ -22,7 +22,6 @@ class WordCloud
 			$xml = simplexml_load_string(file_get_contents($url));
 		}
         foreach($xml->document as $document){
-           # echo $document->title . "   " . $document ->arnumber .  "<br/>";
             $papers[] = $document ->title;
             $papersID[] = $document ->arnumber;
         }
@@ -43,7 +42,6 @@ class WordCloud
             $xml = simplexml_load_string(file_get_contents($url));
         }
         foreach($xml->document as $document){
-            # echo $document->title . "   " . $document ->arnumber .  "<br/>";
             $papers[] = $document ->title;
             $papersID[] = $document ->arnumber;
         }
@@ -79,7 +77,6 @@ class WordCloud
         $frequency = $_frequency;
         $url =  "http://ieeexplore.ieee.org/gateway/ipsSearch.jsp?an=";
         for($i=0; $i<count($papersID); $i++){
-            #echo count ($papersID);
             $link = $url . $papersID[$i];
             if(strcmp($url, "test/testArticle") == 0) {
                 $link .= ".html";
@@ -87,14 +84,14 @@ class WordCloud
             $xml = simplexml_load_string(file_get_contents($link));
             foreach($xml->document as $document){
                 $textForWordCloud =  $document->abstract . " ";
-                if (strpos($textForWordCloud,$word) !== false) {
+                if (strpos(strtolower($textForWordCloud),strtolower($word)) !== false) {
                     $articlesWithWord[] = $document ->title;
                     $authorName[] = $document ->authors;
                     $str = $document->pubtitle;
                     $str = str_replace("]", "", $str);
                     $publisherName[] = $str;
                     $thePaperID[] = $document ->arnumber;
-                    $frequency[] =  substr_count($textForWordCloud, $word);
+                    $frequency[] =  substr_count(strtolower($textForWordCloud), strtolower($word));
                 }
             }
         }

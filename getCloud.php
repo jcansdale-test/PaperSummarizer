@@ -64,7 +64,7 @@ function word_cloud($words, $papersID, $papersName) {
         if ($frequency > $tmin) {
             $font_size = floor(  ( $fmax * ($frequency - $tmin) ) / ( $tmax - $tmin )  );
             /* Define a color index based on the frequency of the word */
-            $r = $g = 0; $b = floor( 255 * ($frequency / $tmax) );
+            $r =floor( 255 * ($frequency / $tmax) ); $g = 0; $b = 0;
             $color = '#' . sprintf('%02s', dechex($r)) . sprintf('%02s', dechex($g)) . sprintf('%02s', dechex($b));
         }
         else {
@@ -76,7 +76,7 @@ function word_cloud($words, $papersID, $papersName) {
             #$url .= 'papersName[]=' . implode('&amp;aValues[]=', array_map('urlencode', $papersName));
             #$url .= '&';
             $url .= 'papersID[]=' . implode('&amp;papersID[]=', array_map('urlencode', $papersID));
-			$cloud .= "<a href=\"$url\" style=\"font-size: {$font_size}px; color: $color;\">$word</a> ";
+			$cloud .= "<a href=\"$url\" style=\"font-size: {$font_size}px; font-family = Avenir; color: $color;\">$word</a> ";
             $tags++;
         }
     }
@@ -85,13 +85,11 @@ function word_cloud($words, $papersID, $papersName) {
     
     return array($cloud, $tags);  
 }
-function returnPapers(){
-    #return $papersName;
-}
+
 if (strtoupper($_SERVER['REQUEST_METHOD']) == 'POST' && $_POST['keyword'] != '') {
     /* If the request verb is POST and the appropriate field is supplied and isn't
        empty, we will attempt to generate the word cloud. */
-    
+
     //$text = $_POST['text']; /* Get the posted text */
 	$provider = new WordCloud;
     $papersID = $provider->getPapersIDByKeyword($_POST['keyword'], $_POST['limit'], "http://ieeexplore.ieee.org/gateway/ipsSearch.jsp?querytext=");

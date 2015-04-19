@@ -1,17 +1,16 @@
 title {
-	color: black;
+	color: #3B3738;
 }
 
 body {
-	background: gray;
-	font-family: fantasy;
+	background: #FDF3E7;
+	font-family: Avenir;
 }
 
 #header {
 	font-size: 60px;
 	text-align: center;
-	font-family: cursive;
-	font-style: italic;
+	font-family: Avenir;
 	padding: 15px 0;
 }
 
@@ -31,7 +30,7 @@ body {
 }
 
 #innerCloud {
-	background: white;
+	background: #F5F3EE;
 	padding: 10px;
 }
 
@@ -44,24 +43,26 @@ body {
 	width: 350px;
 	height: 30px;
 	font-weight: bold;
-	border: 3px solid purple;
+	border: 3px solid #558C89;
 	margin-bottom: 8px;
 }
 
 #submitButton {
-	background: purple;
-	font-family: fantasy;
+	background: #74AFAD;
+	font-family: Avenir;
 	font-size: 20px;
 	border: none;
+    text-align:center;
 }
 
 #addMoreButton {
 	visibility: hidden;
-	background: purple;
-	font-family: fantasy;
+	background: #74AFAD;
+	font-family: Avenir;
 	font-size: 20px;
 	border: none;
 	margin-right: 5px;
+    text-align:center;
 }
 
 #shareButton img{
