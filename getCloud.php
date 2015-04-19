@@ -46,7 +46,7 @@ function freq_filter($words, $filter) {
 }
 
 /* Builds the word cloud and returns a string containing a div of the word cloud. */
-function word_cloud($words) {
+function word_cloud($words, $papersID, $papersName) {
     $tags = 0;
     $cloud = "<div id=\"innerCloud\">";
     
@@ -72,7 +72,11 @@ function word_cloud($words) {
         }
         
         if ($font_size >= $fmin) {
-			$cloud .= "<a href=\"wordTable.php?word=$word\" style=\"font-size: {$font_size}px; color: $color;\">$word</a> ";
+            $url = 'wordTable.php?word=' . $word . "&";
+            #$url .= 'papersName[]=' . implode('&amp;aValues[]=', array_map('urlencode', $papersName));
+            #$url .= '&';
+            $url .= 'papersID[]=' . implode('&amp;papersID[]=', array_map('urlencode', $papersID));
+			$cloud .= "<a href=\"$url\" style=\"font-size: {$font_size}px; color: $color;\">$word</a> ";
             $tags++;
         }
     }
@@ -81,15 +85,20 @@ function word_cloud($words) {
     
     return array($cloud, $tags);  
 }
-
+function returnPapers(){
+    #return $papersName;
+}
 if (strtoupper($_SERVER['REQUEST_METHOD']) == 'POST' && $_POST['keyword'] != '') {
     /* If the request verb is POST and the appropriate field is supplied and isn't
        empty, we will attempt to generate the word cloud. */
     
     //$text = $_POST['text']; /* Get the posted text */
 	$provider = new WordCloud;
-    $papersID = $provider->getPapersByKeyword($_POST['keyword'], $_POST['limit'], "http://ieeexplore.ieee.org/gateway/ipsSearch.jsp?querytext=");
-	$text = $provider->getWordsByPapers($papersID, "http://ieeexplore.ieee.org/xpl/articleDetails.jsp?tp=&arnumber=") . $_POST['prev'];;
+    $papersID = $provider->getPapersIDByKeyword($_POST['keyword'], $_POST['limit'], "http://ieeexplore.ieee.org/gateway/ipsSearch.jsp?querytext=");
+	// use PapersName to call getPapersByWord()
+    global $papersName;
+    $papersName = $provider->getPapersNameByKeyword($_POST['keyword'], $_POST['limit'], "http://ieeexplore.ieee.org/gateway/ipsSearch.jsp?querytext=");
+    $text = $provider->getWordsByPapers($papersID, "http://ieeexplore.ieee.org/gateway/ipsSearch.jsp?an=") . $_POST['prev'];;
     $words = str_word_count($text, 1); /* Generate list of words */
     $word_count = count($words); /* Word count */
     $unique_words = count( array_unique($words) ); /* Unique word count */
@@ -99,7 +108,7 @@ if (strtoupper($_SERVER['REQUEST_METHOD']) == 'POST' && $_POST['keyword'] != '')
     /* Optionally, you can filter out words below a specific frequency... Uncomment the line below to do so */
     /* $word_frequency = freq_filter($word_frequency, 3); */
 
-    $word_c = word_cloud($word_frequency); /* Generate a word cloud and get number of tags */
+    $word_c = word_cloud($word_frequency, $papersID, $papersName); /* Generate a word cloud and get number of tags */
     $word_cloud = $word_c[0]; /* The word cloud */
     $tags = $word_c[1]; /* The number of tags in the word cloud*/
 }

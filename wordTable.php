@@ -12,10 +12,23 @@
 				<th>Link</th>
 				<th>Frequency</th>
 				<th>Subset</th>
+                <th>Conference</th>
 			</tr>
-			<?php 
-				for($i = 0; $i < 10; $i++){
-					echo  "<tr><td></td><td></td><td></td><td></td><td></td></tr>";
+			<?php
+                include "WordCloud.php";
+                global $authorName;
+                global $publisherName;
+                global $thePaperID;
+                $papersID = $_GET['papersID'];
+                global $frequency;
+                $word = $_GET['word'];
+                $provider = new WordCloud;
+                $articlesWithWord = $provider->getArticlesByWord($word, $papersID, $authorName, $publisherName, $thePaperID, $frequency);
+				for($i = 0; $i < count($articlesWithWord); $i++){
+                    $url = "http://ieeexplore.ieee.org/xpl/articleDetails.jsp?tp=&arnumber=". $thePaperID[$i];
+					echo  "<tr><td>$articlesWithWord[$i]</td><td>$authorName[$i]</td><td><a href=$url>Link To Article     </a></td><td>&nbsp$frequency[$i]</td><td>
+                        <input type='checkbox' name='Yes' value='True'> Add to Subset
+                        </td><td>$publisherName[$i]</td></tr>";
 				}
 			?>
 		</table>
