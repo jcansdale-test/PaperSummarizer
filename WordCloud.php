@@ -11,6 +11,8 @@ class WordCloud
         $len = strpos($string, $end, $ini) - $ini;
         return substr($string, $ini, $len);
     }
+	
+	//tested
     function getPapersIDByKeyword($_keyword, $_topX, $_url)
     {
         $topX = $_topX;
@@ -31,6 +33,8 @@ class WordCloud
         return $papersID;
         
     }
+	
+	//tested
     function getPapersNameByKeyword($_keyword, $_topX, $_url)
     {
         $topX = $_topX;
@@ -44,12 +48,14 @@ class WordCloud
             $xml = simplexml_load_string(file_get_contents($url));
         }
         foreach ($xml->document as $document) {
-            $papers[]   = $document->title;
+            $papers[]   = trim($document->title);
             $papersID[] = $document->arnumber;
         }
         
         return $papers;
     }
+	
+	//tested
     function getWordsByPapers($papersID, $url)
     {
         include_once('simple_html_dom.php');
@@ -79,7 +85,7 @@ class WordCloud
         $thePaperID = $_thePaperID;
         global $frequency;
         $frequency = $_frequency;
-        $url       = "http://ieeexplore.ieee.org/gateway/ipsSearch.jsp?an=";
+        $url = "http://ieeexplore.ieee.org/gateway/ipsSearch.jsp?an=";
         for ($i = 0; $i < count($papersID); $i++) {
             $link = $url . $papersID[$i];
             if (strcmp($url, "test/testArticle") == 0) {
@@ -90,12 +96,12 @@ class WordCloud
                 $textForWordCloud = $document->abstract . " ";
                 if (strpos(strtolower($textForWordCloud), strtolower($word)) !== false) {
                     $articlesWithWord[] = $document->title;
-                    $authorName[]       = $document->authors;
-                    $str                = $document->pubtitle;
-                    $str                = str_replace("]", "", $str);
-                    $publisherName[]    = $str;
-                    $thePaperID[]       = $document->arnumber;
-                    $frequency[]        = substr_count(strtolower($textForWordCloud), strtolower($word));
+                    $authorName[] = $document->authors;
+                    $str = $document->pubtitle;
+                    $str = str_replace("]", "", $str);
+                    $publisherName[] = $str;
+                    $thePaperID[] = $document->arnumber;
+                    $frequency[] = substr_count(strtolower($textForWordCloud), strtolower($word));
                 }
             }
         }

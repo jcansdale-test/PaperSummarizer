@@ -5,7 +5,7 @@
 <rank>1</rank>
 <title>
 <![CDATA[
-WASP: Protecting Web Applications Using Positive Tainting and Syntax-Aware Evaluation
+TestTitle1
 ]]>
 </title>
 <authors>
@@ -86,9 +86,7 @@ http://ieeexplore.ieee.org/stamp/stamp.jsp?arnumber=4359474
 <document>
 <rank>2</rank>
 <title>
-<![CDATA[
-Penetration Testing with Improved Input Vector Identification
-]]>
+<![CDATA[TestTitle2]]>
 </title>
 <authors>
 <![CDATA[ Halfond, W.G.J.; Choudhary, S.R.; Orso, A. ]]>
