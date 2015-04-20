@@ -23,7 +23,7 @@
                 global $frequency;
                 $word = $_GET['word'];
                 $provider = new WordCloud;
-                $articlesWithWord = $provider->getArticlesByWord($word, $papersID, $authorName, $publisherName, $thePaperID, $frequency);
+                $articlesWithWord = $provider->getArticlesByWord($word, $papersID, $authorName, $publisherName, $thePaperID, $frequency, "http://ieeexplore.ieee.org/gateway/ipsSearch.jsp?an=");
 				for($i = 0; $i < count($articlesWithWord); $i++){
                     $url = "http://ieeexplore.ieee.org/xpl/articleDetails.jsp?tp=&arnumber=". $thePaperID[$i];
 					echo  "<tr><td><a href = 'http://smanoj.student.uscitp.com/PaperSummarizer/'> $articlesWithWord[$i] </a></td><td>$authorName[$i]</td><td><a href=$url>Link To Article     </a></td><td>&nbsp$frequency[$i]</td><td>

@@ -53,6 +53,25 @@ class WordCloudTest extends PHPUnit_Framework_TestCase {
 		$this->assertEquals($papers, array());
 	}
 	
+	public function testGetArticlesByWordReturnsArticlesIfValidKeyword() {
+		$provider = new WordCloud;
+		$papersID = array(
+			0 => 0,
+			1 => 1 );
+		$papers = $provider->getArticlesByWord("dummy", $papersID , "", "", null, null, "test/article");
+		$this->assertEquals(trim((string)$papers[0]), "TestTitle1");
+		$this->assertEquals(trim((string)$papers[1]), "TestTitle2");
+	}
+	
+	public function testGetArticlesByWordReturnsArticlesIfInvalidKeyword() {
+		$provider = new WordCloud;
+		$papersID = array(
+			0 => 0,
+			1 => 1 );
+		$papers = $provider->getArticlesByWord("---", $papersID , "", "", null, null, "test/article");
+		$this->assertEquals($papers, array());
+	}
+
 	
 }
 ?>

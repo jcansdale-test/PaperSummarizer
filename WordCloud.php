@@ -73,7 +73,7 @@ class WordCloud
         }
         return $textForWordCloud;
     }
-    function getArticlesByWord($word, $papersID, $_authorName, $_publisherName, $_thePaperID, $_frequency)
+    function getArticlesByWord($word, $papersID, $_authorName, $_publisherName, $_thePaperID, $_frequency, $_url)
     {
         include_once('simple_html_dom.php');
         $articlesWithWord = array();
@@ -85,11 +85,12 @@ class WordCloud
         $thePaperID = $_thePaperID;
         global $frequency;
         $frequency = $_frequency;
-        $url = "http://ieeexplore.ieee.org/gateway/ipsSearch.jsp?an=";
+        $url = $_url;
+		//$url = "http://ieeexplore.ieee.org/gateway/ipsSearch.jsp?an=";
         for ($i = 0; $i < count($papersID); $i++) {
             $link = $url . $papersID[$i];
-            if (strcmp($url, "test/testArticle") == 0) {
-                $link .= ".html";
+            if (strcmp($url, "test/article") == 0) {
+                $link .= ".xml";
             }
             $xml = simplexml_load_string(file_get_contents($link));
             foreach ($xml->document as $document) {
