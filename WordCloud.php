@@ -56,12 +56,12 @@ class WordCloud
         $textForWordCloud = "";
         for ($i = 0; $i < count($papersID); $i++) {
             $link = $url . $papersID[$i];
-            if (strcmp($url, "test/testArticle") == 0) {
-                $link .= ".html";
+            if (strcmp($url, "test/article") == 0) {
+                $link .= ".xml";
             }
             $xml = simplexml_load_string(file_get_contents($link));
             foreach ($xml->document as $document) {
-                $textForWordCloud = $textForWordCloud . $document->abstract . " ";
+                $textForWordCloud = $textForWordCloud . trim($document->abstract) . " ";
             }
             
         }

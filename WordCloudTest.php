@@ -2,16 +2,16 @@
 include 'WordCloud.php';
 
 class WordCloudTest extends PHPUnit_Framework_TestCase {
-	public function testGetPapersByKeywordReturnsValidArticleNumbersIfValidXML() {
+	public function testGetPapersIDByKeywordReturnsValidArticleNumbersIfValidXML() {
 		$provider = new WordCloud;
-		$papers = $provider->getPapersByKeyword("", 0, "test/testXML.xml");
+		$papers = $provider->getPapersIDByKeyword("", 0, "test/testXML.xml");
 		$this->assertEquals((int)$papers[0], 4359474);
 		$this->assertEquals((int)$papers[1], 4815368);
 	}
-	
-	public function testGetPapersByKeywordReturnsEmptyIfInvvalidXML() {
+
+	public function testGetPapersIDByKeywordReturnsEmptyIfInvvalidXML() {
 		$provider = new WordCloud;
-		$papers = $provider->getPapersByKeyword("", 0, "test/badXML.xml");
+		$papers = $provider->getPapersIDByKeyword("", 0, "test/badXML.xml");
 		$this->assertEquals($papers, array());
 	}
 	
@@ -19,8 +19,8 @@ class WordCloudTest extends PHPUnit_Framework_TestCase {
 		$provider = new WordCloud;
 		$papersID = array(
 			0 => 0);
-		$text = $provider->getWordsByPapers($papersID, "test/testArticle");
-		$this->assertEquals($text, "dummy data from testArticle0  ");
+		$text = $provider->getWordsByPapers($papersID, "test/article");
+		$this->assertEquals($text, "dummy data from article0 ");
 	}
 	
 	public function testGetWordsByPapersReturnsTextIfMultipleValidArticles() {
@@ -28,18 +28,17 @@ class WordCloudTest extends PHPUnit_Framework_TestCase {
 		$papersID = array(
 			0 => 0,
 			1 => 1 );
-		$text = $provider->getWordsByPapers($papersID, "test/testArticle");
-		$this->assertEquals($text, "dummy data from testArticle0  dummy data from testArticle1  ");
+		$text = $provider->getWordsByPapers($papersID, "test/article");
+		$this->assertEquals($text, "dummy data from article0 dummy data from article1 ");
 	}
 	
-	public function testWordsByPapersReturnsEmptyIfInvalidHTML() {
+	public function testGetWordsByPapersReturnsEmptyIfInvalidXML() {
 		$provider = new WordCloud;
 		$papersID = array(
 			0 => 3);
-		$text = $provider->getWordsByPapers($papersID, "test/testArticle");
+		$text = $provider->getWordsByPapers($papersID, "test/article");
 		$this->assertEquals($text, "");
 	}
-	
 }
 ?>
  
