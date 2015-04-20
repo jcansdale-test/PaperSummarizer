@@ -1,70 +1,74 @@
 <?php
 class WordCloud
 {
-	function get_string_between($string, $start, $end){
-		$string = " ".$string;
-		$ini = strpos($string,$start);
-		if ($ini == 0) return "";
-		$ini += strlen($start);
-		$len = strpos($string,$end,$ini) - $ini;
-		return substr($string,$ini,$len);
-	}
-    function getPapersIDByKeyword($_keyword, $_topX, $_url){
-        $topX = $_topX;
-		$url = $_url;
-        global $papers;
-        $papersID = array();
-        $keyword = $_keyword;
-		if(strcmp($url, "http://ieeexplore.ieee.org/gateway/ipsSearch.jsp?querytext=") == 0) {
-			$xml = simplexml_load_string(file_get_contents($url . $keyword . "&hc=" . $topX . "&rs=1"));
-		}
-		else {
-			$xml = simplexml_load_string(file_get_contents($url));
-		}
-        foreach($xml->document as $document){
-            $papers[] = $document ->title;
-            $papersID[] = $document ->arnumber;
-        }
-
-        return $papersID;
-
+    function get_string_between($string, $start, $end)
+    {
+        $string = " " . $string;
+        $ini    = strpos($string, $start);
+        if ($ini == 0)
+            return "";
+        $ini += strlen($start);
+        $len = strpos($string, $end, $ini) - $ini;
+        return substr($string, $ini, $len);
     }
-    function getPapersNameByKeyword($_keyword, $_topX, $_url){
+    function getPapersIDByKeyword($_keyword, $_topX, $_url)
+    {
         $topX = $_topX;
-        $url = $_url;
+        $url  = $_url;
         global $papers;
         $papersID = array();
-        $keyword = $_keyword;
-        if(strcmp($url, "http://ieeexplore.ieee.org/gateway/ipsSearch.jsp?querytext=") == 0) {
+        $keyword  = $_keyword;
+        if (strcmp($url, "http://ieeexplore.ieee.org/gateway/ipsSearch.jsp?querytext=") == 0) {
             $xml = simplexml_load_string(file_get_contents($url . $keyword . "&hc=" . $topX . "&rs=1"));
-        }
-        else {
+        } else {
             $xml = simplexml_load_string(file_get_contents($url));
         }
-        foreach($xml->document as $document){
-            $papers[] = $document ->title;
-            $papersID[] = $document ->arnumber;
+        foreach ($xml->document as $document) {
+            $papers[]   = $document->title;
+            $papersID[] = $document->arnumber;
         }
-
+        
+        return $papersID;
+        
+    }
+    function getPapersNameByKeyword($_keyword, $_topX, $_url)
+    {
+        $topX = $_topX;
+        $url  = $_url;
+        global $papers;
+        $papersID = array();
+        $keyword  = $_keyword;
+        if (strcmp($url, "http://ieeexplore.ieee.org/gateway/ipsSearch.jsp?querytext=") == 0) {
+            $xml = simplexml_load_string(file_get_contents($url . $keyword . "&hc=" . $topX . "&rs=1"));
+        } else {
+            $xml = simplexml_load_string(file_get_contents($url));
+        }
+        foreach ($xml->document as $document) {
+            $papers[]   = $document->title;
+            $papersID[] = $document->arnumber;
+        }
+        
         return $papers;
     }
-    function getWordsByPapers($papersID, $url){
+    function getWordsByPapers($papersID, $url)
+    {
         include_once('simple_html_dom.php');
         $textForWordCloud = "";
-        for($i=0; $i<count($papersID); $i++){
-			$link = $url . $papersID[$i];
-			if(strcmp($url, "test/testArticle") == 0) {
-				$link .= ".html";
-			}
+        for ($i = 0; $i < count($papersID); $i++) {
+            $link = $url . $papersID[$i];
+            if (strcmp($url, "test/testArticle") == 0) {
+                $link .= ".html";
+            }
             $xml = simplexml_load_string(file_get_contents($link));
-            foreach($xml->document as $document){
+            foreach ($xml->document as $document) {
                 $textForWordCloud = $textForWordCloud . $document->abstract . " ";
             }
-
+            
         }
         return $textForWordCloud;
     }
-    function getArticlesByWord($word, $papersID, $_authorName, $_publisherName, $_thePaperID, $_frequency){
+    function getArticlesByWord($word, $papersID, $_authorName, $_publisherName, $_thePaperID, $_frequency)
+    {
         include_once('simple_html_dom.php');
         $articlesWithWord = array();
         global $authorName;
@@ -75,38 +79,29 @@ class WordCloud
         $thePaperID = $_thePaperID;
         global $frequency;
         $frequency = $_frequency;
-        $url =  "http://ieeexplore.ieee.org/gateway/ipsSearch.jsp?an=";
-        for($i=0; $i<count($papersID); $i++){
+        $url       = "http://ieeexplore.ieee.org/gateway/ipsSearch.jsp?an=";
+        for ($i = 0; $i < count($papersID); $i++) {
             $link = $url . $papersID[$i];
-            if(strcmp($url, "test/testArticle") == 0) {
+            if (strcmp($url, "test/testArticle") == 0) {
                 $link .= ".html";
             }
             $xml = simplexml_load_string(file_get_contents($link));
-            foreach($xml->document as $document){
-                $textForWordCloud =  $document->abstract . " ";
-                if (strpos(strtolower($textForWordCloud),strtolower($word)) !== false) {
-                    $articlesWithWord[] = $document ->title;
-                    $authorName[] = $document ->authors;
-                    $str = $document->pubtitle;
-                    $str = str_replace("]", "", $str);
-                    $publisherName[] = $str;
-                    $thePaperID[] = $document ->arnumber;
-                    $frequency[] =  substr_count(strtolower($textForWordCloud), strtolower($word));
+            foreach ($xml->document as $document) {
+                $textForWordCloud = $document->abstract . " ";
+                if (strpos(strtolower($textForWordCloud), strtolower($word)) !== false) {
+                    $articlesWithWord[] = $document->title;
+                    $authorName[]       = $document->authors;
+                    $str                = $document->pubtitle;
+                    $str                = str_replace("]", "", $str);
+                    $publisherName[]    = $str;
+                    $thePaperID[]       = $document->arnumber;
+                    $frequency[]        = substr_count(strtolower($textForWordCloud), strtolower($word));
                 }
             }
         }
-
+        
         return $articlesWithWord;
     }
 }
-//$provider = new WordCloud;
-//$papersID = $provider->getPapersIDByKeyword("Halfond", 10, "http://ieeexplore.ieee.org/gateway/ipsSearch.jsp?querytext=");
-//$papersName = $provider->getPapersNameByKeyword("Halfond", 10, "http://ieeexplore.ieee.org/gateway/ipsSearch.jsp?querytext=");
-//$words =  $provider->getWordsByPapers($papersID, "http://ieeexplore.ieee.org/gateway/ipsSearch.jsp?an=");
-
-//$articlesWithWord = $provider->getArticlesByWord("attacks", $papersID, $authorName, $publisherName);
-//global $authorName;
-//echo $authorName[0];
-//echo count($articlesWithWord);
 
 ?>
