@@ -24,6 +24,10 @@ th {
 	height: 40px;
 }
 
+td {
+min-width: 50px;
+max-width: 220px;}
+
 
 tr:nth-child(odd){ 
 	background: #b8d1f3;
@@ -35,4 +39,7 @@ tr:nth-child(even){
 	height: 20px;
 }
 
+#subsetSubmit {
+	margin-top: 20px;
+}
 

@@ -39,10 +39,12 @@
                         <input type='checkbox' name=\"subsetList\" value=$thePaperID[$i]> Add to Subset</input>
                         </td><td>$publisherName[$i]</td></tr>";
 				}
+				
 			?>
 		</table>
 	</div>
-	<input type="submit" id="subsetSubmit">
+	<input type="submit" id="subsetSubmit" value="Create Cloud from Subset">
+	<input type="submit" id="back" value="Back">
 </body>
 <script>
 $('#subsetSubmit').click(function(){
@@ -50,17 +52,7 @@ $('#subsetSubmit').click(function(){
             {
                 return $(this).val();
             }).get();
-/*
-            $.ajax({
-                url: 'index.php',
-                type: 'get',
-                data: { ids: checkValues },
-                success:function(data){
 
-                }
-            });
-			*/
-			
 			var url = "?word=&";
 			for(i = 0; i < checkValues.length; i++) {
 				url += "papersID[]=" + checkValues[i] + "&";
@@ -68,7 +60,13 @@ $('#subsetSubmit').click(function(){
 			
 			window.location = "index.php" + url;
         
-    });
+});
+<?php 
+$toSearch = $_GET['word'];
+echo "$('#back').click(function(){
+		window.location = 'index.php?papersID=&word=$toSearch';
+});";
+?>
 </script>
 	
 
