@@ -97,18 +97,24 @@ if (strtoupper($_SERVER['REQUEST_METHOD']) == 'POST' && $_POST['keyword'] != '')
     global $papersName;
     $papersName = $provider->getPapersNameByKeyword($_POST['keyword'], $_POST['limit'], "http://ieeexplore.ieee.org/gateway/ipsSearch.jsp?querytext=");
     $text = $provider->getWordsByPapers($papersID, "http://ieeexplore.ieee.org/gateway/ipsSearch.jsp?an=") . $_POST['prev'];;
+
     $words = str_word_count($text, 1); /* Generate list of words */
     $word_count = count($words); /* Word count */
     $unique_words = count( array_unique($words) ); /* Unique word count */
-
     $words_filtered = filter_stopwords($words, $stopwords); /* Filter out stop words from the word list */
-    $word_frequency = word_freq($words_filtered); /* Build a word frequency list */
+    if(count($words_filtered) != 0) {
+        $word_frequency = word_freq($words_filtered); /* Build a word frequency list */
+        $word_c = word_cloud($word_frequency, $papersID, $papersName); /* Generate a word cloud and get number of tags */
+        $word_cloud = $word_c[0]; /* The word cloud */
+        $tags = $word_c[1]; /* The number of tags in the word cloud*/
+    }
+    else{
+        echo "Could not generate Word Cloud given that keyword! Sorry!";
+    }
     /* Optionally, you can filter out words below a specific frequency... Uncomment the line below to do so */
     /* $word_frequency = freq_filter($word_frequency, 3); */
 
-    $word_c = word_cloud($word_frequency, $papersID, $papersName); /* Generate a word cloud and get number of tags */
-    $word_cloud = $word_c[0]; /* The word cloud */
-    $tags = $word_c[1]; /* The number of tags in the word cloud*/
+
 }
 else {
     /* Otherwise there is nothing to do... */
