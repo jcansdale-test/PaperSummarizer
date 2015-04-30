@@ -56,7 +56,7 @@
 				data: {
 					prev: '',
 					keyword: '$toSearch',
-					limit: 1
+					limit: 5
 				},
 				success: function(msg){
 					$('#cloudBox').html(msg);
