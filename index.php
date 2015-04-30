@@ -65,6 +65,30 @@
 		});
 		</script>";
 	}
+	else if($_GET['papersID'] != null){
+		$toSearch = $_GET['papersID'];
+		$encodedSearch = json_encode($toSearch);
+		
+		echo "<script> 
+		$(document).ready(function(){
+			$.ajax({
+				beforeSend: function() {
+					$('#cloudBox').html(\"<div id='generating'>Generating Cloud...</div>\");
+				},
+				type: 'POST',
+				url: 'getCloud.php',
+				data: {
+					keyword: '',
+					papersID: $encodedSearch,
+					limit: 5
+				},
+				success: function(msg){
+					$('#cloudBox').html(msg);
+				}
+			});
+		});
+		</script>";
+	}
 ?>
 <script>
 	$("#submitButton").click(function(){
@@ -75,8 +99,8 @@
 			type: "post",
 			url: "getCloud.php",
 			data: {
-				prev: '',
 				keyword: $('#inputBox').val(),
+				papersID: '',
 				limit: $('#limit').val()
 			},
 			success: function(msg){

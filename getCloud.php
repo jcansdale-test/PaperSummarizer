@@ -86,7 +86,7 @@ function word_cloud($words, $papersID, $papersName) {
     return array($cloud, $tags);  
 }
 
-if (strtoupper($_SERVER['REQUEST_METHOD']) == 'POST' && $_POST['keyword'] != '') {
+if (strtoupper($_SERVER['REQUEST_METHOD']) == 'POST' && $_POST['keyword'] != '' ) {
     /* If the request verb is POST and the appropriate field is supplied and isn't
        empty, we will attempt to generate the word cloud. */
 
@@ -96,7 +96,7 @@ if (strtoupper($_SERVER['REQUEST_METHOD']) == 'POST' && $_POST['keyword'] != '')
 	// use PapersName to call getPapersByWord()
     global $papersName;
     $papersName = $provider->getPapersNameByKeyword($_POST['keyword'], $_POST['limit'], "http://ieeexplore.ieee.org/gateway/ipsSearch.jsp?querytext=");
-    $text = $provider->getWordsByPapers($papersID, "http://ieeexplore.ieee.org/gateway/ipsSearch.jsp?an=") . $_POST['prev'];;
+    $text = $provider->getWordsByPapers($papersID, "http://ieeexplore.ieee.org/gateway/ipsSearch.jsp?an=");
 
     $words = str_word_count($text, 1); /* Generate list of words */
     $word_count = count($words); /* Word count */
@@ -116,6 +116,24 @@ if (strtoupper($_SERVER['REQUEST_METHOD']) == 'POST' && $_POST['keyword'] != '')
 
 
 }
+else if($_POST['papersID'] != ''){
+	$provider = new WordCloud;
+	$papersID = $_POST['papersID'];
+	$text = $provider->getWordsByPapers($papersID, "http://ieeexplore.ieee.org/gateway/ipsSearch.jsp?an=");
+	$words = str_word_count($text, 1); /* Generate list of words */
+    $word_count = count($words); /* Word count */
+    $unique_words = count( array_unique($words) ); /* Unique word count */
+    $words_filtered = filter_stopwords($words, $stopwords); /* Filter out stop words from the word list */
+    if(count($words_filtered) != 0) {
+        $word_frequency = word_freq($words_filtered); /* Build a word frequency list */
+        $word_c = word_cloud($word_frequency, $papersID, ''); /* Generate a word cloud and get number of tags */
+        $word_cloud = $word_c[0]; /* The word cloud */
+        $tags = $word_c[1]; /* The number of tags in the word cloud*/
+    }
+    else{
+        echo "Could not generate Word Cloud given that keyword! Sorry!";
+    }
+}
 else {
     /* Otherwise there is nothing to do... */
     $text = "";
@@ -133,9 +151,7 @@ else {
 <div id="cloudResult">
 <?php 
 	echo $word_cloud;
-	echo "<div class=\"hiddenText\" id=\"prevText\">$text</div>";
 ?>
 </div>
-
 </body>
 </html>
