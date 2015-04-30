@@ -26,9 +26,7 @@
 	</div>	
 	<div id ="inputPane">
 		<input id="inputBox" type="text" name="text" placeholder="Input Text Here">
-		<button id="addMoreButton">Add More To Cloud</button>
-			<a href="http://www.facebook.com/sharer.php?u=LyricFloat.com" id="shareButton" target="_blank"><img src="img/fb.png" alt="Facebook" /></a>
-			<button id="submitButton">Submit</button>
+		<button id="submitButton">Submit</button>
 		<div id="buttons">
 		<div id="articleLimit">
 			<span>Article Limit:</span>
@@ -44,44 +42,46 @@
 	</div>
 </body>
 </html>
-
+<?php 
+	if($_GET['word'] != null) {
+		$toSearch = $_GET['word'];	
+		echo "<script> 
+		$(document).ready(function(){
+			$.ajax({
+				beforeSend: function() {
+					$('#cloudBox').html(\"<div id='generating'>Generating Cloud...</div>\");
+				},
+				type: 'post',
+				url: 'getCloud.php',
+				data: {
+					prev: '',
+					keyword: '$toSearch',
+					limit: 1
+				},
+				success: function(msg){
+					$('#cloudBox').html(msg);
+				}
+			});
+		});
+		</script>";
+	}
+?>
 <script>
 	$("#submitButton").click(function(){
 		$.ajax({
-				beforeSend: function() {
-					$('#cloudBox').html("<div id=\"generating\">Generating Cloud...</div>");
-				},
-				type: "post",
-				url: "getCloud.php",
-				data: {
-					prev: '',
-					keyword: $('#inputBox').val(),
-					limit: $('#limit').val()
-				},
-				success: function(msg){
-					$('#cloudBox').html(msg);
-					$('#addMoreButton').css("visibility", "visible");
-					$('#shareButton img').css("visibility", "visible");
-				}
-		});
-	});
-	
-	
-	$("#addMoreButton").click(function(){
-		$.ajax({
-				beforeSend: function() {
-					$('#cloudBox').html("<div id=\"generating\">Generating Cloud...</div>");
-				},
-				type: "post",
-				url: "getCloud.php",
-				data: {
-					prev: $('#prevText').text(),
-					keyword: $('#inputBox').val(),
-					limit: $('#limit').val()
-				},
-				success: function(msg){
-					$('#cloudBox').html(msg);
-				}
+			beforeSend: function() {
+				$('#cloudBox').html("<div id=\"generating\">Generating Cloud...</div>");
+			},
+			type: "post",
+			url: "getCloud.php",
+			data: {
+				prev: '',
+				keyword: $('#inputBox').val(),
+				limit: $('#limit').val()
+			},
+			success: function(msg){
+				$('#cloudBox').html(msg);
+			}
 		});
 	});
 </script>

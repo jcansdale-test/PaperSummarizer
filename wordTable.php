@@ -26,12 +26,12 @@
                 $articlesWithWord = $provider->getArticlesByWord($word, $papersID, $authorName, $publisherName, $thePaperID, $frequency, "http://ieeexplore.ieee.org/gateway/ipsSearch.jsp?an=");
 				for($i = 0; $i < count($articlesWithWord); $i++){
                     $url = "http://ieeexplore.ieee.org/xpl/articleDetails.jsp?tp=&arnumber=". $thePaperID[$i];
-					echo  "<tr><td><a href = 'http://smanoj.student.uscitp.com/PaperSummarizer/'> $articlesWithWord[$i] </a></td><td>$authorName[$i]</td><td><a href=$url>Link To Article     </a></td><td>&nbsp$frequency[$i]</td><td>
+					$explodedNames = explode(",", $authorName[$i]);
+					$formattedAuthorName = $explodedNames[0]; 
+					echo  "<tr><td><a href = 'http://smanoj.student.uscitp.com/PaperSummarizer/'> $articlesWithWord[$i] </a></td><td><a href='index.php?word=$formattedAuthorName'>$authorName[$i]</a></td><td><a href=$url>Link To Article</a></td><td>&nbsp$frequency[$i]</td><td>
                         <input type='checkbox' name='Yes' value='True'> Add to Subset
                         </td><td>$publisherName[$i]</td></tr>";
 				}
-
-
 			?>
 		</table>
 	</div>
