@@ -43,13 +43,14 @@
 </body>
 </html>
 <?php 
+	error_reporting(E_ALL ^ E_NOTICE);
 	if($_GET['word'] != null) {
 		$toSearch = $_GET['word'];	
 		echo "<script> 
 		$(document).ready(function(){
 			$.ajax({
 				beforeSend: function() {
-					$('#cloudBox').html(\"<div id='generating'>Generating Cloud...</div>\");
+					$('#cloudBox').html(\"<img id='generating' src='http://sierrafire.cr.usgs.gov/images/loading.gif'>\");
 				},
 				type: 'post',
 				url: 'getCloud.php',
@@ -73,7 +74,7 @@
 		$(document).ready(function(){
 			$.ajax({
 				beforeSend: function() {
-					$('#cloudBox').html(\"<div id='generating'>Generating Cloud...</div>\");
+					$('#cloudBox').html(\"<img id='generating' src='http://sierrafire.cr.usgs.gov/images/loading.gif'>\");
 				},
 				type: 'POST',
 				url: 'getCloud.php',
@@ -94,7 +95,7 @@
 	$("#submitButton").click(function(){
 		$.ajax({
 			beforeSend: function() {
-				$('#cloudBox').html("<div id=\"generating\">Generating Cloud...</div>");
+				$('#cloudBox').html("<img id=\"generating\" src=\"http://sierrafire.cr.usgs.gov/images/loading.gif\">");
 			},
 			type: "post",
 			url: "getCloud.php",

@@ -62,10 +62,10 @@ $('#subsetSubmit').click(function(){
         
 });
 <?php 
-$toSearch = $_GET['word'];
-echo "$('#back').click(function(){
-		window.location = 'index.php?papersID=&word=$toSearch';
-});";
+	$toSearch = $_GET['word'];
+	echo "$('#back').click(function(){
+			window.location = 'index.php?papersID=&word=$toSearch';
+	});";
 ?>
 </script>
 	
