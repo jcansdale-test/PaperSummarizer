@@ -46,7 +46,7 @@ function freq_filter($words, $filter) {
 }
 
 /* Builds the word cloud and returns a string containing a div of the word cloud. */
-function word_cloud($words, $papersID, $papersName) {
+function word_cloud($words, $papersID, $papersName, $keyword) {
     $tags = 0;
     $cloud = "<div id=\"innerCloud\">";
     
@@ -72,7 +72,7 @@ function word_cloud($words, $papersID, $papersName) {
         }
         
         if ($font_size >= $fmin) {
-            $url = 'wordTable.php?word=' . $word . "&";
+            $url = 'wordTable.php?word=' . $word . "&searchword=" . $keyword . "&";
             #$url .= 'papersName[]=' . implode('&amp;aValues[]=', array_map('urlencode', $papersName));
             #$url .= '&';
             $url .= 'papersID[]=' . implode('&amp;papersID[]=', array_map('urlencode', $papersID));
@@ -104,7 +104,7 @@ if (strtoupper($_SERVER['REQUEST_METHOD']) == 'POST' && $_POST['keyword'] != '' 
     $words_filtered = filter_stopwords($words, $stopwords); /* Filter out stop words from the word list */
     if(count($words_filtered) != 0) {
         $word_frequency = word_freq($words_filtered); /* Build a word frequency list */
-        $word_c = word_cloud($word_frequency, $papersID, $papersName); /* Generate a word cloud and get number of tags */
+        $word_c = word_cloud($word_frequency, $papersID, $papersName, $_POST['keyword']); /* Generate a word cloud and get number of tags */
         $word_cloud = $word_c[0]; /* The word cloud */
         $tags = $word_c[1]; /* The number of tags in the word cloud*/
     }

@@ -63,8 +63,9 @@ $('#subsetSubmit').click(function(){
 });
 <?php 
 	$toSearch = $_GET['word'];
+	$oldSearch = $_GET['searchword'];
 	echo "$('#back').click(function(){
-			window.location = 'index.php?papersID=&word=$toSearch';
+			window.location = 'index.php?word=$oldSearch';
 	});";
 ?>
 </script>

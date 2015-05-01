@@ -20,6 +20,7 @@ class WordCloud
         global $papers;
         $papersID = array();
         $keyword  = $_keyword;
+        $keyword = str_replace(" ", "%20" , $keyword);
         if (strcmp($url, "http://ieeexplore.ieee.org/gateway/ipsSearch.jsp?querytext=") == 0) {
             $xml = simplexml_load_string(file_get_contents($url . $keyword . "&hc=" . $topX . "&rs=1"));
         } else {
@@ -42,6 +43,7 @@ class WordCloud
         global $papers;
         $papersID = array();
         $keyword  = $_keyword;
+        $keyword = str_replace(" ", "%20" , $keyword);
         if (strcmp($url, "http://ieeexplore.ieee.org/gateway/ipsSearch.jsp?querytext=") == 0) {
             $xml = simplexml_load_string(file_get_contents($url . $keyword . "&hc=" . $topX . "&rs=1"));
         } else {
